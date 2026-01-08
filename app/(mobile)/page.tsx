@@ -3,6 +3,7 @@ import { Input } from "@jllt/alize-ui";
 import { MobileHeader } from "@/components/signals/mobile-header";
 import { SignalCard } from "@/components/signals/signal-card";
 import { signals } from "@/lib/data/mock-data";
+import { DesktopHomeView } from "@/components/signals/desktop-home-view";
 
 export default function HomePage() {
   return (
@@ -42,18 +43,8 @@ export default function HomePage() {
       </div>
 
       {/* ===== DESKTOP VERSION ===== */}
-      <div className="hidden md:block p-6">
-        {/* Signals Updates - grid layout for desktop */}
-        <section className="flex flex-col gap-4">
-          <h2 className="text-lg font-semibold text-foreground">
-            Signals updates
-          </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-            {signals.map((signal) => (
-              <SignalCard key={signal.id} signal={signal} />
-            ))}
-          </div>
-        </section>
+      <div className="hidden md:block h-full">
+        <DesktopHomeView />
       </div>
     </>
   );
