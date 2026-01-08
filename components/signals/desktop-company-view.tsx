@@ -25,9 +25,10 @@ import {
   currentUser,
   companyStatsData,
   getWarmIntroduction,
+  getClientProfile,
   companies,
 } from "@/lib/data/mock-data";
-import type { Company, Person } from "@/lib/types";
+import type { Company, Person, ClientProfile, JLLServiceType } from "@/lib/types";
 import { WorkingLeadsPanel } from "./working-leads-panel";
 
 interface DesktopCompanyViewProps {
@@ -43,6 +44,7 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
   const [selectedCity, setSelectedCity] = useState("All");
   const companyPeople = getCompanyPeople(company.id);
   const warmIntro = getWarmIntroduction(company.id);
+  const clientProfile = getClientProfile(company.id);
 
   const filteredActivities =
     selectedCity === "All"
@@ -100,12 +102,18 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
           className="flex-1 flex flex-col overflow-hidden"
         >
           <div className="border-b border-border bg-background px-6">
-            <TabsList className="bg-transparent h-auto p-0 gap-6">
+            <TabsList className="bg-transparent h-auto p-0 pb-2 gap-6">
               <TabsTrigger
                 value="overview"
                 className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
               >
                 Overview
+              </TabsTrigger>
+              <TabsTrigger
+                value="client"
+                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+              >
+                Client Profile
               </TabsTrigger>
               <TabsTrigger
                 value="engagement"
@@ -114,22 +122,10 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                 Engagement
               </TabsTrigger>
               <TabsTrigger
-                value="communication"
-                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
-              >
-                Communication
-              </TabsTrigger>
-              <TabsTrigger
                 value="contacts"
                 className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
               >
                 Contacts
-              </TabsTrigger>
-              <TabsTrigger
-                value="leases"
-                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
-              >
-                Leases
               </TabsTrigger>
             </TabsList>
           </div>
@@ -297,11 +293,15 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
               </div>
             </TabsContent>
 
-            {/* Communication Tab - Placeholder */}
-            <TabsContent value="communication" className="mt-0 px-6 py-5">
-              <div className="flex items-center justify-center h-64">
-                <p className="text-muted-foreground">Coming soon</p>
-              </div>
+            {/* Client Profile Tab */}
+            <TabsContent value="client" className="mt-0 px-6 py-5">
+              {clientProfile ? (
+                <ClientProfileSection profile={clientProfile} />
+              ) : (
+                <div className="flex items-center justify-center h-64">
+                  <p className="text-muted-foreground">No client profile available</p>
+                </div>
+              )}
             </TabsContent>
 
             {/* Contacts Tab */}
@@ -377,13 +377,6 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                     avatar={person.avatar}
                   />
                 ))}
-              </div>
-            </TabsContent>
-
-            {/* Leases Tab - Placeholder */}
-            <TabsContent value="leases" className="mt-0 px-6 py-5">
-              <div className="flex items-center justify-center h-64">
-                <p className="text-muted-foreground">Coming soon</p>
               </div>
             </TabsContent>
           </ScrollArea>
@@ -592,6 +585,87 @@ function EngagementTimelineRow({
       <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0">
         {date}
       </span>
+    </div>
+  );
+}
+
+// Client Profile Section for Desktop
+interface ClientProfileSectionProps {
+  profile: ClientProfile;
+}
+
+function ClientProfileSection({ profile }: ClientProfileSectionProps) {
+  const allServices: JLLServiceType[] = [
+    ...profile.activeServices,
+    ...profile.availableServices,
+  ];
+
+  return (
+    <div className="flex flex-col gap-6">
+      {/* Account Lead */}
+      {profile.accountLead && (
+        <div className="flex items-center gap-4">
+          <Avatar className="size-14">
+            {profile.accountLead.avatar ? (
+              <AvatarImage src={profile.accountLead.avatar} alt={profile.accountLead.name} />
+            ) : (
+              <AvatarFallback className="bg-muted text-muted-foreground">
+                {profile.accountLead.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+              </AvatarFallback>
+            )}
+          </Avatar>
+          <div className="flex flex-col">
+            <Badge variant="outline" className="w-fit mb-1 text-xs">
+              Account lead
+            </Badge>
+            <span className="text-base font-medium text-foreground">
+              {profile.accountLead.name}
+            </span>
+            <span className="text-sm text-muted-foreground">
+              {profile.accountLead.title}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Location */}
+      {profile.location && (
+        <div className="flex items-center gap-3">
+          <MaterialSymbol name="location_on" size={20} className="text-muted-foreground" />
+          <span className="text-sm text-foreground">
+            {profile.location}
+          </span>
+        </div>
+      )}
+
+      {/* JLL Services */}
+      <div className="flex flex-col gap-3">
+        <h3 className="text-sm font-medium text-foreground">
+          JLL Services
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {allServices.map((service) => {
+            const isActive = profile.activeServices.includes(service);
+            return (
+              <div
+                key={service}
+                className={`
+                  flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm
+                  ${isActive 
+                    ? 'border-[var(--tonal-science-subdued,#e8f4ff)] bg-[var(--tonal-science-subdued,#e8f4ff)] text-[var(--tonal-science-strong,#125190)]' 
+                    : 'border-border text-muted-foreground bg-muted/30'
+                  }
+                `}
+              >
+                {isActive && (
+                  <MaterialSymbol name="check" size={14} className="text-[var(--tonal-science-strong,#125190)]" />
+                )}
+                <span>{service}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

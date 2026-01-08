@@ -133,7 +133,7 @@ function CompanyDetailPanel({ company }: { company: Company }) {
         className="flex-1 flex flex-col overflow-hidden"
       >
         <div className="border-b border-stroke-subdued bg-background px-6">
-          <TabsList className="bg-transparent h-auto p-0 gap-6">
+          <TabsList className="bg-transparent h-auto p-0 pb-2 gap-6">
             <TabsTrigger
               value="overview"
               className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
