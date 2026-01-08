@@ -1,0 +1,73 @@
+# Signals App - Cursor Rules
+
+## Project Overview
+Signals is a mobile-first CRM app for JLL brokers to manage company and relationship intelligence.
+
+## Core Constraints
+
+### 1. Alizé UI Exclusive
+- Use `@jllt/alize-ui` components EXCLUSIVELY
+- NO custom components without explicit user approval
+- NO custom styling (inline styles, custom CSS classes) without approval
+- If a component doesn't exist in Alizé, ASK before creating it
+
+### 2. Mobile-First Development
+- Design for 375px viewport first
+- Use responsive Tailwind classes from Alizé (sm:, md:, lg:)
+- Desktop extensions will come later - focus on mobile
+
+### 3. Code Quality
+- Production-ready code that engineers take seriously
+- TypeScript strict mode
+- Clean, readable code with proper naming conventions
+- Components in `components/signals/` directory
+
+### 4. Workflow Rules
+- ALWAYS validate understanding before coding
+- Summarize the task in simple terms and get confirmation
+- NO assumptions about design decisions
+- When in doubt, ASK
+
+### 5. Documentation
+- Keep `CONTEXT.md` updated with decisions
+- Document any deviations or special cases
+- Log design decisions with rationale
+
+## File Structure
+```
+app/
+  (mobile)/           # Mobile layout group
+    layout.tsx        # Mobile shell with bottom nav
+    page.tsx          # Home screen
+    search/page.tsx   # Search screen
+    company/[id]/page.tsx
+    person/[id]/page.tsx
+lib/
+  data/mock-data.ts   # Static mock data
+  types/index.ts      # TypeScript interfaces
+components/
+  signals/            # App-specific compositions
+```
+
+## Alizé Components Reference
+Primary components to use:
+- Layout: Card, Tabs, ScrollArea, Separator
+- Forms: Input, Select, Label, Textarea, Button, Checkbox
+- Feedback: Badge, Avatar, Dialog, Drawer, Popover
+- Navigation: DropdownMenu
+- Icons: MaterialSymbol
+
+## Data Approach
+- Static mock data in `lib/data/mock-data.ts`
+- TypeScript interfaces in `lib/types/index.ts`
+- No API calls for MVP
+
+## Don'ts
+- Don't add features not in the wireframes
+- Don't over-engineer or add unnecessary abstractions
+- Don't use external UI libraries (shadcn direct, chakra, etc.)
+- Don't create custom color variables or themes
+- Don't add animations unless specified in design
+
+
+
