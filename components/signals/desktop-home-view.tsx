@@ -22,15 +22,19 @@ export function DesktopHomeView() {
   }
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full gap-4 p-4">
       {/* Left Panel - Working Leads */}
-      <WorkingLeadsPanel 
-        selectedCompanyId={selectedCompanyId}
-        onSelectCompany={setSelectedCompanyId}
-      />
+      <div className="shrink-0">
+        <WorkingLeadsPanel 
+          selectedCompanyId={selectedCompanyId}
+          onSelectCompany={setSelectedCompanyId}
+        />
+      </div>
 
       {/* Right Panel - Company Detail */}
-      <CompanyDetailPanel company={selectedCompany} />
+      <div className="flex-1 min-w-0">
+        <CompanyDetailPanel company={selectedCompany} />
+      </div>
     </div>
   );
 }
@@ -77,7 +81,7 @@ function CompanyDetailPanel({ company }: { company: Company }) {
       : activities.filter((a) => a.location === selectedCity);
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-background">
+    <div className="flex-1 flex flex-col overflow-hidden bg-background rounded-lg border border-border">
       {/* Company Header */}
       <div className="border-b border-border px-6 py-4">
         <div className="flex items-center justify-between">

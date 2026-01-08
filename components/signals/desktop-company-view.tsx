@@ -50,12 +50,14 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
       : activities.filter((a) => a.location === selectedCity);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full gap-4 p-4">
       {/* Left Panel - Working Leads */}
-      <WorkingLeadsPanel selectedCompanyId={company.id} />
+      <div className="shrink-0">
+        <WorkingLeadsPanel selectedCompanyId={company.id} />
+      </div>
 
       {/* Right Panel - Company Detail */}
-      <div className="flex-1 flex flex-col overflow-hidden bg-background">
+      <div className="flex-1 flex flex-col overflow-hidden bg-background rounded-lg border border-border min-w-0">
         {/* Company Header */}
         <div className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">

@@ -12,7 +12,7 @@ interface WorkingLeadsPanelProps {
 
 export function WorkingLeadsPanel({ selectedCompanyId, onSelectCompany }: WorkingLeadsPanelProps) {
   return (
-    <div className="w-80 border-r border-border bg-background flex flex-col h-full shrink-0">
+    <div className="w-80 border border-border bg-background flex flex-col h-full shrink-0 rounded-lg overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-1">
