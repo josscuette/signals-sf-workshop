@@ -32,6 +32,7 @@ import {
 } from "@/lib/data/mock-data";
 import type { Person } from "@/lib/types";
 import { DesktopCompanyView } from "@/components/signals/desktop-company-view";
+import { PersonDetailDrawer } from "@/components/signals/person-detail-drawer";
 
 interface CompanyPageProps {
   params: Promise<{ id: string }>;
@@ -54,6 +55,15 @@ export default function CompanyPage({ params }: CompanyPageProps) {
   
   // Panel refs
   const panelRefs = useRef<(HTMLDivElement | null)[]>([null, null, null]);
+
+  // Person detail drawer state
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+  const [personDrawerOpen, setPersonDrawerOpen] = useState(false);
+
+  const handlePersonClick = (person: Person) => {
+    setSelectedPerson(person);
+    setPersonDrawerOpen(true);
+  };
 
   const tabs = ["overview", "engagement", "contacts"];
   const currentIndex = tabs.indexOf(activeTab);
@@ -279,9 +289,10 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                         .join("")
                         .toUpperCase();
                       return (
-                        <div
+                        <button
                           key={person.id}
                           className="flex-1 flex flex-col items-center gap-2"
+                          onClick={() => handlePersonClick(person)}
                         >
                           <div className="w-full aspect-square">
                             <Avatar className="size-full">
@@ -297,7 +308,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                           <span className="text-xs leading-4 text-foreground text-center w-full">
                             {person.name}
                           </span>
-                        </div>
+                        </button>
                       );
                     })}
                   </div>
@@ -464,6 +475,12 @@ export default function CompanyPage({ params }: CompanyPageProps) {
         </div>
       </Tabs>
 
+        {/* Person Detail Drawer */}
+        <PersonDetailDrawer
+          person={selectedPerson}
+          open={personDrawerOpen}
+          onOpenChange={setPersonDrawerOpen}
+        />
       </div>
     </>
   );
