@@ -66,7 +66,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
     setPersonDrawerOpen(true);
   };
 
-  const tabs = ["overview", "engagement", "contacts", "client"];
+  const tabs = ["overview", "client", "engagement", "contacts"];
   const currentIndex = tabs.indexOf(activeTab);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -207,27 +207,27 @@ export default function CompanyPage({ params }: CompanyPageProps) {
               <TabsList className="w-max bg-transparent h-auto p-0 gap-4 pl-6 mb-[-1px]">
                 <TabsTrigger
                   value="overview"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Overview
                 </TabsTrigger>
                 <TabsTrigger
+                  value="client"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
+                >
+                  Client Profile
+                </TabsTrigger>
+                <TabsTrigger
                   value="engagement"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Engagement
                 </TabsTrigger>
                 <TabsTrigger
                   value="contacts"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Contacts
-                </TabsTrigger>
-                <TabsTrigger
-                  value="client"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
-                >
-                  Client Profile
                 </TabsTrigger>
               </TabsList>
               <ScrollBar orientation="horizontal" />
@@ -361,7 +361,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
               </div>
             </div>
 
-            {/* Engagement Panel */}
+            {/* Client Profile Panel */}
             <div 
               ref={(el) => { panelRefs.current[1] = el; }}
               className="bg-muted/50 w-full"
@@ -370,6 +370,29 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                 opacity: currentIndex === 1 ? 1 : 0,
                 pointerEvents: currentIndex === 1 ? 'auto' : 'none',
                 transform: `translateX(${(1 - currentIndex) * 100 + (dragOffset / (typeof window !== 'undefined' ? window.innerWidth : 375)) * 100}%)`,
+                transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
+                top: 0,
+                left: 0,
+              }}
+            >
+              {clientProfile ? (
+                <ClientProfilePanel profile={clientProfile} />
+              ) : (
+                <div className="p-8 text-center">
+                  <p className="text-sm leading-5 text-muted-foreground">No client profile available</p>
+                </div>
+              )}
+            </div>
+
+            {/* Engagement Panel */}
+            <div 
+              ref={(el) => { panelRefs.current[2] = el; }}
+              className="bg-muted/50 w-full"
+              style={{ 
+                position: currentIndex === 2 ? 'relative' : 'absolute',
+                opacity: currentIndex === 2 ? 1 : 0,
+                pointerEvents: currentIndex === 2 ? 'auto' : 'none',
+                transform: `translateX(${(2 - currentIndex) * 100 + (dragOffset / (typeof window !== 'undefined' ? window.innerWidth : 375)) * 100}%)`,
                 transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
                 top: 0,
                 left: 0,
@@ -403,13 +426,13 @@ export default function CompanyPage({ params }: CompanyPageProps) {
 
             {/* Contacts Panel */}
             <div 
-              ref={(el) => { panelRefs.current[2] = el; }}
+              ref={(el) => { panelRefs.current[3] = el; }}
               className="bg-muted/50 w-full"
               style={{ 
-                position: currentIndex === 2 ? 'relative' : 'absolute',
-                opacity: currentIndex === 2 ? 1 : 0,
-                pointerEvents: currentIndex === 2 ? 'auto' : 'none',
-                transform: `translateX(${(2 - currentIndex) * 100 + (dragOffset / (typeof window !== 'undefined' ? window.innerWidth : 375)) * 100}%)`,
+                position: currentIndex === 3 ? 'relative' : 'absolute',
+                opacity: currentIndex === 3 ? 1 : 0,
+                pointerEvents: currentIndex === 3 ? 'auto' : 'none',
+                transform: `translateX(${(3 - currentIndex) * 100 + (dragOffset / (typeof window !== 'undefined' ? window.innerWidth : 375)) * 100}%)`,
                 transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
                 top: 0,
                 left: 0,
@@ -461,29 +484,6 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                   </div>
                 )}
               </div>
-            </div>
-
-            {/* Client Profile Panel */}
-            <div 
-              ref={(el) => { panelRefs.current[3] = el; }}
-              className="bg-muted/50 w-full"
-              style={{ 
-                position: currentIndex === 3 ? 'relative' : 'absolute',
-                opacity: currentIndex === 3 ? 1 : 0,
-                pointerEvents: currentIndex === 3 ? 'auto' : 'none',
-                transform: `translateX(${(3 - currentIndex) * 100 + (dragOffset / (typeof window !== 'undefined' ? window.innerWidth : 375)) * 100}%)`,
-                transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
-                top: 0,
-                left: 0,
-              }}
-            >
-              {clientProfile ? (
-                <ClientProfilePanel profile={clientProfile} />
-              ) : (
-                <div className="p-8 text-center">
-                  <p className="text-sm leading-5 text-muted-foreground">No client profile available</p>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -705,10 +705,10 @@ function ClientProfilePanel({ profile }: { profile: ClientProfile }) {
     <div className="bg-background">
       {/* Content */}
       <div className="px-6 py-4 flex flex-col gap-6">
-        {/* Client Type Badge */}
+        {/* Account Lead Badge */}
         <div>
           <Badge tonal={getClientTypeTonal(profile.clientType)} className="text-sm">
-            {profile.clientType}
+            Account lead
           </Badge>
         </div>
 
@@ -759,13 +759,13 @@ function ClientProfilePanel({ profile }: { profile: ClientProfile }) {
                   className={`
                     flex items-center gap-2 px-4 py-2 rounded-full border text-sm leading-5
                     ${isActive 
-                      ? 'border-foreground text-foreground' 
+                      ? 'border-[var(--tonal-science-subdued,#e8f4ff)] bg-[var(--tonal-science-subdued,#e8f4ff)] text-[var(--tonal-science-strong,#125190)]' 
                       : 'border-border text-muted-foreground bg-muted/30'
                     }
                   `}
                 >
                   {isActive && (
-                    <MaterialSymbol name="check" size={16} />
+                    <MaterialSymbol name="check" size={16} className="text-[var(--tonal-science-strong,#125190)]" />
                   )}
                   <span className={service.length > 20 ? 'truncate max-w-[180px]' : ''}>
                     {service}
