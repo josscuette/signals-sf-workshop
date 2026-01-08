@@ -27,7 +27,7 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-60 h-screen bg-background border-r border-border flex flex-col shrink-0">
+    <aside className="w-60 h-screen bg-muted border-r border-border flex flex-col shrink-0">
       {/* Logo */}
       <div className="px-6 py-4">
         <Logo productName="Signals" />

@@ -16,7 +16,7 @@ export function DesktopHeader({ searchPlaceholder = "Search companies", onSearch
     .toUpperCase();
 
   return (
-    <header className="h-16 border-b border-border bg-background flex items-center justify-between px-6 gap-6">
+    <header className="h-16 border-b border-border bg-muted flex items-center justify-between px-6 gap-6">
       {/* Left spacer for balance */}
       <div className="w-40" />
 
