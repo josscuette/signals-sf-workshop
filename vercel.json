@@ -1,4 +1,3 @@
 {
-  "installCommand": "npm install --ignore-scripts"
+  "installCommand": "echo '@jllt:registry=https://artifacts.jll.com/artifactory/api/npm/csp-npm-release-local/' > .npmrc && echo '//artifacts.jll.com/artifactory/api/npm/csp-npm-release-local/:_authToken='$NPM_AUTH_TOKEN >> .npmrc && npm install --ignore-scripts"
 }
-

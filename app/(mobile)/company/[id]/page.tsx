@@ -14,7 +14,6 @@ import {
   MaterialSymbol,
   ScrollArea,
   ScrollBar,
-  Input,
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
@@ -440,22 +439,6 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                   </div>
                   <span className="text-sm leading-5 text-muted-foreground">Local jobs</span>
                 </div>
-              </div>
-
-              {/* Tabs and Search */}
-              <div className="bg-background px-6 py-3 flex flex-col gap-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="default" className="cursor-pointer">
-                    Company contacts ({companyPeople.length})
-                  </Badge>
-                  <Badge variant="outline" className="cursor-pointer">
-                    Internal connections ({jllConnections.length})
-                  </Badge>
-                </div>
-                <Input 
-                    placeholder="Search company"
-                    className="w-full h-11 shadow-sm"
-                  />
               </div>
 
               {/* Contact Cards */}
