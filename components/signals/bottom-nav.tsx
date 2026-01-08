@@ -132,7 +132,7 @@ export function BottomNav({ onActivityClick }: BottomNavProps) {
               <MaterialSymbol
                 name={item.icon}
                 size={24}
-                fill={active}
+                fill={active ? 1 : 0}
                 className={active ? "text-foreground" : "text-muted-foreground"}
               />
               <span
