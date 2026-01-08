@@ -91,13 +91,6 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
             </Button>
           </div>
 
-          {/* Skeleton placeholder bars (as shown in screenshot) */}
-          <div className="flex gap-3 mt-4">
-            <div className="h-2 w-24 bg-muted rounded" />
-            <div className="h-2 w-32 bg-muted rounded" />
-            <div className="h-2 w-20 bg-muted rounded" />
-            <div className="h-2 w-28 bg-muted rounded" />
-          </div>
         </div>
 
         {/* Tabs */}
@@ -141,7 +134,7 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
             </TabsList>
           </div>
 
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1 h-0">
             {/* Overview Tab */}
             <TabsContent value="overview" className="mt-0 px-6 py-5">
               {/* Signals Badges */}
@@ -176,22 +169,18 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
 
                 {/* Leadership Contact Cards - 2 columns */}
                 <div className="grid grid-cols-2 gap-4">
-                  <WarmIntroContactCard 
-                    name="John Doe"
-                    title="Senior Managing Director"
-                    location="Dallas, TX"
-                    isLeadership={true}
-                    stats={{ contacts: 12, emails: 23, meetings: 5 }}
-                    lastInteraction="michael@livevox.com"
-                  />
-                  <WarmIntroContactCard 
-                    name="John Doe"
-                    title="Senior Managing Director"
-                    location="Dallas, TX"
-                    isLeadership={true}
-                    stats={{ contacts: 12, emails: 23, meetings: 5 }}
-                    lastInteraction="michael@livevox.com"
-                  />
+                  {warmIntro?.contacts.slice(0, 2).map((contact) => (
+                    <WarmIntroContactCard 
+                      key={contact.id}
+                      name={contact.name}
+                      title={contact.title}
+                      location="Dallas, TX"
+                      isLeadership={contact.tags.includes('Leadership')}
+                      stats={contact.stats}
+                      lastInteraction={contact.email || 'N/A'}
+                      avatar={contact.avatar}
+                    />
+                  ))}
                 </div>
               </section>
 
@@ -201,27 +190,18 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                   Contacts
                 </h3>
                 <div className="grid grid-cols-3 gap-4">
-                  <ContactCard 
-                    name="Craig Mueller"
-                    initials="CM"
-                    title="Vice President of Acmee Corporation"
-                    mutualConnection="John Doe"
-                    signalBadge="Hired or promoted Aug 1, 2025"
-                  />
-                  <ContactCard 
-                    name="Craig Mueller"
-                    initials="CM"
-                    title="Vice President of Acmee Corporation"
-                    mutualConnection="John Doe"
-                    signalBadge="Hired or promoted Aug 1, 2025"
-                  />
-                  <ContactCard 
-                    name="Craig Mueller"
-                    initials="CM"
-                    title="Vice President of Acmee Corporation"
-                    mutualConnection="John Doe"
-                    signalBadge="Hired or promoted Aug 1, 2025"
-                  />
+                  {companyPeople.slice(0, 3).map((person) => (
+                    <ContactCard 
+                      key={person.id}
+                      name={person.name}
+                      initials={person.name.split(" ").map(w => w[0]).join("").toUpperCase()}
+                      title={person.title}
+                      mutualConnection={jllConnections[0]?.name}
+                      mutualConnectionAvatar={jllConnections[0]?.avatar}
+                      signalBadge={person.lastContact ? "Hired or promoted Aug 1, 2025" : undefined}
+                      avatar={person.avatar}
+                    />
+                  ))}
                 </div>
               </section>
 
@@ -392,7 +372,9 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                     initials={person.name.split(" ").map(w => w[0]).join("").toUpperCase()}
                     title={person.title}
                     mutualConnection={jllConnections[0]?.name}
+                    mutualConnectionAvatar={jllConnections[0]?.avatar}
                     signalBadge={person.lastContact ? "Hired or promoted Aug 1, 2025" : undefined}
+                    avatar={person.avatar}
                   />
                 ))}
               </div>
@@ -492,11 +474,12 @@ interface ContactCardProps {
   initials: string;
   title: string;
   mutualConnection?: string;
+  mutualConnectionAvatar?: string;
   signalBadge?: string;
   avatar?: string;
 }
 
-function ContactCard({ name, initials, title, mutualConnection, signalBadge, avatar }: ContactCardProps) {
+function ContactCard({ name, initials, title, mutualConnection, mutualConnectionAvatar, signalBadge, avatar }: ContactCardProps) {
   return (
     <div className="bg-background border border-border rounded-lg p-4">
       {/* Top row: Avatar + Signal badge */}
@@ -527,7 +510,7 @@ function ContactCard({ name, initials, title, mutualConnection, signalBadge, ava
       {mutualConnection && (
         <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
           <Avatar className="size-5">
-            <AvatarImage src={jllConnections[0]?.avatar} alt={mutualConnection} />
+            {mutualConnectionAvatar && <AvatarImage src={mutualConnectionAvatar} alt={mutualConnection} />}
             <AvatarFallback className="text-[8px]">
               {mutualConnection.split(" ").map(w => w[0]).join("")}
             </AvatarFallback>
@@ -581,6 +564,7 @@ function EngagementTimelineRow({
         </div>
       ) : userName ? (
         <Avatar className="size-6 shrink-0">
+          {currentUser.avatar && <AvatarImage src={currentUser.avatar} alt={userName} />}
           <AvatarFallback className="text-[8px]">
             {userName.split(" ").map(w => w[0]).join("")}
           </AvatarFallback>

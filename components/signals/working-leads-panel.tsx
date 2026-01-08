@@ -12,7 +12,7 @@ interface WorkingLeadsPanelProps {
 
 export function WorkingLeadsPanel({ selectedCompanyId, onSelectCompany }: WorkingLeadsPanelProps) {
   return (
-    <div className="w-80 border border-border bg-background flex flex-col h-full shrink-0 rounded-lg overflow-hidden">
+    <div className="w-80 bg-background flex flex-col h-full shrink-0 rounded-lg overflow-hidden">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-1">
@@ -31,8 +31,8 @@ export function WorkingLeadsPanel({ selectedCompanyId, onSelectCompany }: Workin
       </div>
 
       {/* Leads List */}
-      <ScrollArea className="flex-1">
-        <div className="flex flex-col">
+      <ScrollArea className="flex-1 bg-background">
+        <div className="flex flex-col p-2 gap-1">
           {workingLeads.map((lead) => (
             <WorkingLeadCard
               key={lead.id}

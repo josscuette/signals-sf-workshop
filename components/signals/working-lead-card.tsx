@@ -23,8 +23,10 @@ export function WorkingLeadCard({ lead, isSelected, onClick }: WorkingLeadCardPr
   return (
     <Link href={`/company/${company.id}`} onClick={onClick}>
       <div
-        className={`p-4 border-b border-border hover:bg-muted/50 transition-colors cursor-pointer ${
-          isSelected ? "bg-muted" : ""
+        className={`p-4 rounded-lg transition-colors cursor-pointer ${
+          isSelected 
+            ? "bg-muted" 
+            : "hover:bg-muted/50"
         }`}
       >
         {/* Header row: Logo + Name + Time + Unread dot */}
@@ -74,8 +76,8 @@ export function WorkingLeadCard({ lead, isSelected, onClick }: WorkingLeadCardPr
           {signals.map((signal) => (
             <Badge
               key={signal}
-              variant="outline"
-              className="text-xs px-2 py-0.5 border-stroke-subdued"
+              variant="secondary"
+              className="text-xs px-2 py-0.5"
             >
               {signal}
             </Badge>

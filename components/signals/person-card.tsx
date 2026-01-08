@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Card, CardContent, Avatar, AvatarFallback, Badge } from "@jllt/alize-ui";
+import { Card, CardContent, Avatar, AvatarFallback, AvatarImage, Badge } from "@jllt/alize-ui";
 import type { Person } from "@/lib/types";
 
 interface PersonCardProps {
@@ -22,6 +22,7 @@ export function PersonCard({ person, showStats = true, showLastContact }: Person
         <CardContent className="p-4">
           <div className="flex items-start gap-3">
             <Avatar className="h-10 w-10 shrink-0">
+              {person.avatar && <AvatarImage src={person.avatar} alt={person.name} />}
               <AvatarFallback className="bg-muted text-muted-foreground text-sm">
                 {initials}
               </AvatarFallback>

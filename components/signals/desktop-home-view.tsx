@@ -63,6 +63,7 @@ import {
   currentUser,
   companyStatsData,
   companies,
+  getWarmIntroduction,
 } from "@/lib/data/mock-data";
 import type { Company } from "@/lib/types";
 
@@ -74,6 +75,7 @@ function CompanyDetailPanel({ company }: { company: Company }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedCity, setSelectedCity] = useState("All");
   const companyPeople = getCompanyPeople(company.id);
+  const warmIntro = getWarmIntroduction(company.id);
 
   const filteredActivities =
     selectedCity === "All"
@@ -81,9 +83,9 @@ function CompanyDetailPanel({ company }: { company: Company }) {
       : activities.filter((a) => a.location === selectedCity);
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden bg-background rounded-lg border border-border">
+    <div className="flex-1 flex flex-col overflow-hidden bg-background rounded-lg">
       {/* Company Header */}
-      <div className="border-b border-border px-6 py-4">
+      <div className="border-b border-stroke-subdued px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h1 className="text-lg font-medium text-foreground flex items-center gap-2">
@@ -130,7 +132,7 @@ function CompanyDetailPanel({ company }: { company: Company }) {
         onValueChange={setActiveTab}
         className="flex-1 flex flex-col overflow-hidden"
       >
-        <div className="border-b border-border bg-background px-6">
+        <div className="border-b border-stroke-subdued bg-background px-6">
           <TabsList className="bg-transparent h-auto p-0 gap-6">
             <TabsTrigger
               value="overview"
@@ -200,22 +202,18 @@ function CompanyDetailPanel({ company }: { company: Company }) {
 
               {/* Leadership Contact Cards */}
               <div className="grid grid-cols-2 gap-4">
-                <WarmIntroContactCard 
-                  name="John Doe"
-                  title="Senior Managing Director"
-                  location="Dallas, TX"
-                  isLeadership={true}
-                  stats={{ contacts: 12, emails: 23, meetings: 5 }}
-                  lastInteraction="michael@livevox.com"
-                />
-                <WarmIntroContactCard 
-                  name="John Doe"
-                  title="Senior Managing Director"
-                  location="Dallas, TX"
-                  isLeadership={true}
-                  stats={{ contacts: 12, emails: 23, meetings: 5 }}
-                  lastInteraction="michael@livevox.com"
-                />
+                {warmIntro?.contacts.slice(0, 2).map((contact) => (
+                  <WarmIntroContactCard 
+                    key={contact.id}
+                    name={contact.name}
+                    title={contact.title}
+                    location="Dallas, TX"
+                    isLeadership={contact.tags.includes('Leadership')}
+                    stats={contact.stats}
+                    lastInteraction={contact.email || 'N/A'}
+                    avatar={contact.avatar}
+                  />
+                ))}
               </div>
             </section>
 
@@ -225,27 +223,18 @@ function CompanyDetailPanel({ company }: { company: Company }) {
                 Contacts
               </h3>
               <div className="grid grid-cols-3 gap-4">
-                <ContactCard 
-                  name="Craig Mueller"
-                  initials="CM"
-                  title="Vice President of Acmee Corporation"
-                  mutualConnection="John Doe"
-                  signalBadge="Hired or promoted Aug 1, 2025"
-                />
-                <ContactCard 
-                  name="Craig Mueller"
-                  initials="CM"
-                  title="Vice President of Acmee Corporation"
-                  mutualConnection="John Doe"
-                  signalBadge="Hired or promoted Aug 1, 2025"
-                />
-                <ContactCard 
-                  name="Craig Mueller"
-                  initials="CM"
-                  title="Vice President of Acmee Corporation"
-                  mutualConnection="John Doe"
-                  signalBadge="Hired or promoted Aug 1, 2025"
-                />
+                {companyPeople.slice(0, 3).map((person) => (
+                  <ContactCard 
+                    key={person.id}
+                    name={person.name}
+                    initials={person.name.split(" ").map(w => w[0]).join("").toUpperCase()}
+                    title={person.title}
+                    mutualConnection={jllConnections[0]?.name}
+                    mutualConnectionAvatar={jllConnections[0]?.avatar}
+                    signalBadge={person.lastContact ? "Hired or promoted Aug 1, 2025" : undefined}
+                    avatar={person.avatar}
+                  />
+                ))}
               </div>
             </section>
 
@@ -351,7 +340,7 @@ function CompanyDetailPanel({ company }: { company: Company }) {
           {/* Contacts Tab */}
           <TabsContent value="contacts" className="mt-0 px-6 py-5">
             {/* Stats Row */}
-            <div className="flex gap-8 mb-6 pb-6 border-b border-border">
+            <div className="flex gap-8 mb-6 pb-6 border-b border-stroke-subdued">
               <div className="flex flex-col">
                 <div className="flex items-center gap-1">
                   <span className="text-2xl font-semibold text-foreground">
@@ -412,7 +401,9 @@ function CompanyDetailPanel({ company }: { company: Company }) {
                   initials={person.name.split(" ").map(w => w[0]).join("").toUpperCase()}
                   title={person.title}
                   mutualConnection={jllConnections[0]?.name}
+                  mutualConnectionAvatar={jllConnections[0]?.avatar}
                   signalBadge={person.lastContact ? "Hired or promoted Aug 1, 2025" : undefined}
+                  avatar={person.avatar}
                 />
               ))}
             </div>
@@ -453,7 +444,7 @@ function WarmIntroContactCard({
   const initials = name.split(" ").map(w => w[0]).join("").toUpperCase();
 
   return (
-    <div className="bg-background border border-border rounded-lg p-4">
+    <div className="bg-background border border-stroke-subdued rounded-lg p-4">
       <div className="flex items-start gap-3">
         <Avatar className="size-14 shrink-0">
           {avatar ? (
@@ -483,7 +474,7 @@ function WarmIntroContactCard({
       </div>
 
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-border">
+      <div className="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-stroke-subdued">
         <div>
           <p className="text-xs text-muted-foreground">Contacts</p>
           <p className="text-sm font-medium text-foreground">{stats.contacts}</p>
@@ -511,13 +502,14 @@ interface ContactCardProps {
   initials: string;
   title: string;
   mutualConnection?: string;
+  mutualConnectionAvatar?: string;
   signalBadge?: string;
   avatar?: string;
 }
 
-function ContactCard({ name, initials, title, mutualConnection, signalBadge, avatar }: ContactCardProps) {
+function ContactCard({ name, initials, title, mutualConnection, mutualConnectionAvatar, signalBadge, avatar }: ContactCardProps) {
   return (
-    <div className="bg-background border border-border rounded-lg p-4">
+    <div className="bg-background border border-stroke-subdued rounded-lg p-4">
       {/* Top row */}
       <div className="flex items-start justify-between mb-3">
         <Avatar className="size-12">
@@ -542,9 +534,9 @@ function ContactCard({ name, initials, title, mutualConnection, signalBadge, ava
       <p className="text-sm text-muted-foreground">{title}</p>
 
       {mutualConnection && (
-        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
+        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-stroke-subdued">
           <Avatar className="size-5">
-            <AvatarImage src={jllConnections[0]?.avatar} alt={mutualConnection} />
+            {mutualConnectionAvatar && <AvatarImage src={mutualConnectionAvatar} alt={mutualConnection} />}
             <AvatarFallback className="text-[8px]">
               {mutualConnection.split(" ").map(w => w[0]).join("")}
             </AvatarFallback>
@@ -579,7 +571,7 @@ function EngagementTimelineRow({
   date 
 }: EngagementTimelineRowProps) {
   return (
-    <div className="flex items-start gap-4 py-3 border-b border-border last:border-b-0">
+    <div className="flex items-start gap-4 py-3 border-b border-stroke-subdued last:border-b-0">
       <MaterialSymbol
         name={icon}
         size={18}
@@ -587,7 +579,7 @@ function EngagementTimelineRow({
       />
 
       {companyLogo || companyInitials ? (
-        <div className="shrink-0 size-6 rounded border border-border overflow-hidden bg-background flex items-center justify-center">
+        <div className="shrink-0 size-6 rounded border border-stroke-subdued overflow-hidden bg-background flex items-center justify-center">
           {companyLogo ? (
             <img src={companyLogo} alt="" className="size-full object-contain p-0.5" />
           ) : (
@@ -596,6 +588,7 @@ function EngagementTimelineRow({
         </div>
       ) : userName ? (
         <Avatar className="size-6 shrink-0">
+          {currentUser.avatar && <AvatarImage src={currentUser.avatar} alt={userName} />}
           <AvatarFallback className="text-[8px]">
             {userName.split(" ").map(w => w[0]).join("")}
           </AvatarFallback>

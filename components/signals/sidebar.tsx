@@ -44,8 +44,8 @@ export function Sidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm leading-5 transition-colors ${
                     active
-                      ? "bg-muted text-foreground font-medium"
-                      : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      ? "bg-level1 text-foreground font-medium"
+                      : "text-muted-foreground hover:bg-level1/50 hover:text-foreground"
                   }`}
                 >
                   <MaterialSymbol
