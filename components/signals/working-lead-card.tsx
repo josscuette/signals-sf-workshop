@@ -23,16 +23,11 @@ export function WorkingLeadCard({ lead, isSelected, onClick }: WorkingLeadCardPr
   return (
     <Link href={`/company/${company.id}`} onClick={onClick}>
       <div
-        className={`relative p-4 border-b border-border hover:bg-muted/50 transition-colors cursor-pointer ${
+        className={`p-4 border-b border-border hover:bg-muted/50 transition-colors cursor-pointer ${
           isSelected ? "bg-muted" : ""
         }`}
       >
-        {/* Unread indicator */}
-        {isUnread && (
-          <div className="absolute top-4 right-4 size-2 rounded-full bg-[var(--tonal-science-strong,#125190)]" />
-        )}
-
-        {/* Header row: Logo + Name + Time */}
+        {/* Header row: Logo + Name + Time + Unread dot */}
         <div className="flex items-start gap-3 mb-3">
           {/* Company Logo */}
           <div className="shrink-0 size-10 rounded-md border border-stroke-subdued overflow-hidden bg-background flex items-center justify-center">
@@ -63,10 +58,15 @@ export function WorkingLeadCard({ lead, isSelected, onClick }: WorkingLeadCardPr
             )}
           </div>
 
-          {/* Time */}
-          <span className="text-xs text-muted-foreground shrink-0">
-            {lastActivity}
-          </span>
+          {/* Time + Unread indicator */}
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-muted-foreground">
+              {lastActivity}
+            </span>
+            {isUnread && (
+              <div className="size-2 rounded-full bg-[var(--tonal-science-strong,#125190)]" />
+            )}
+          </div>
         </div>
 
         {/* Signals row */}
