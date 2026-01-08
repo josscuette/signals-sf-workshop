@@ -1,4 +1,4 @@
-import type { Company, Person, Signal, Activity, User, CompanyStats, WorkingLead, WarmIntroduction } from '@/lib/types';
+import type { Company, Person, Signal, Activity, User, CompanyStats, WorkingLead, WarmIntroduction, ClientProfile } from '@/lib/types';
 
 // Current user
 export const currentUser: User = {
@@ -830,5 +830,104 @@ export function getLeadershipContacts(companyId: string): Person[] {
 // Get warm introduction for a company
 export function getWarmIntroduction(companyId: string): WarmIntroduction | undefined {
   return warmIntroductions[companyId];
+}
+
+// Client Profiles
+export const clientProfiles: Record<string, ClientProfile> = {
+  'company-1': { // Salesforce
+    clientType: 'Portfolio Client',
+    accountLead: {
+      id: 'jll-lead-1',
+      name: 'Maria Joyce',
+      title: 'JLL Account Lead',
+      avatar: 'https://randomuser.me/api/portraits/women/28.jpg',
+    },
+    location: 'New York City',
+    activeServices: ['Transaction Management', 'Consulting'],
+    availableServices: ['JLL Technologies', 'Lease Admin', 'Integrated Facilities Management', 'Project Management', 'Workplace Services'],
+  },
+  'company-2': { // Northrop Grumman
+    clientType: 'Strategic Account',
+    accountLead: {
+      id: 'jll-lead-2',
+      name: 'Robert Chen',
+      title: 'JLL Account Director',
+      avatar: 'https://randomuser.me/api/portraits/men/52.jpg',
+    },
+    location: 'Los Angeles',
+    activeServices: ['Transaction Management', 'Project Management', 'Integrated Facilities Management'],
+    availableServices: ['Consulting', 'JLL Technologies', 'Lease Admin', 'Workplace Services', 'Capital Markets'],
+  },
+  'company-3': { // Varonis
+    clientType: 'Active Client',
+    accountLead: {
+      id: 'jll-lead-3',
+      name: 'Sarah Thompson',
+      title: 'JLL Senior Broker',
+      avatar: 'https://randomuser.me/api/portraits/women/45.jpg',
+    },
+    location: 'San Francisco',
+    activeServices: ['Transaction Management'],
+    availableServices: ['Consulting', 'JLL Technologies', 'Lease Admin', 'Integrated Facilities Management', 'Project Management', 'Workplace Services'],
+  },
+  'company-4': { // Stripe
+    clientType: 'Prospect',
+    location: 'San Francisco',
+    activeServices: [],
+    availableServices: ['Transaction Management', 'Consulting', 'JLL Technologies', 'Lease Admin', 'Integrated Facilities Management', 'Project Management', 'Workplace Services', 'Capital Markets'],
+  },
+  'company-5': { // BlackRock
+    clientType: 'Portfolio Client',
+    accountLead: {
+      id: 'jll-lead-4',
+      name: 'David Williams',
+      title: 'JLL Managing Director',
+      avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
+    },
+    location: 'New York City',
+    activeServices: ['Transaction Management', 'Capital Markets', 'Consulting', 'Project Management'],
+    availableServices: ['JLL Technologies', 'Lease Admin', 'Integrated Facilities Management', 'Workplace Services'],
+  },
+  'company-6': { // Google
+    clientType: 'Strategic Account',
+    accountLead: {
+      id: 'jll-lead-5',
+      name: 'Jennifer Lee',
+      title: 'JLL Account Executive',
+      avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
+    },
+    location: 'Mountain View',
+    activeServices: ['Transaction Management', 'Consulting', 'Integrated Facilities Management', 'Workplace Services'],
+    availableServices: ['JLL Technologies', 'Lease Admin', 'Project Management', 'Capital Markets'],
+  },
+  'company-7': { // Microsoft
+    clientType: 'Portfolio Client',
+    accountLead: {
+      id: 'jll-lead-6',
+      name: 'Michael Rodriguez',
+      title: 'JLL Global Account Lead',
+      avatar: 'https://randomuser.me/api/portraits/men/36.jpg',
+    },
+    location: 'Seattle',
+    activeServices: ['Transaction Management', 'Consulting', 'JLL Technologies', 'Integrated Facilities Management', 'Project Management'],
+    availableServices: ['Lease Admin', 'Workplace Services', 'Capital Markets'],
+  },
+  'company-8': { // Amazon
+    clientType: 'Strategic Account',
+    accountLead: {
+      id: 'jll-lead-7',
+      name: 'Emily Davis',
+      title: 'JLL Account Director',
+      avatar: 'https://randomuser.me/api/portraits/women/52.jpg',
+    },
+    location: 'Seattle',
+    activeServices: ['Transaction Management', 'Lease Admin', 'Integrated Facilities Management'],
+    availableServices: ['Consulting', 'JLL Technologies', 'Project Management', 'Workplace Services', 'Capital Markets'],
+  },
+};
+
+// Get client profile for a company
+export function getClientProfile(companyId: string): ClientProfile | undefined {
+  return clientProfiles[companyId];
 }
 

@@ -102,5 +102,29 @@ export interface LeadershipContact extends Person {
   lastInteraction?: string;
 }
 
+// Client Profile types
+export type JLLServiceType = 
+  | 'Transaction Management'
+  | 'Consulting'
+  | 'JLL Technologies'
+  | 'Lease Admin'
+  | 'Integrated Facilities Management'
+  | 'Project Management'
+  | 'Workplace Services'
+  | 'Capital Markets';
+
+export interface ClientProfile {
+  clientType: 'Portfolio Client' | 'Strategic Account' | 'Prospect' | 'Active Client';
+  accountLead?: {
+    id: string;
+    name: string;
+    title: string;
+    avatar?: string;
+  };
+  location?: string;
+  activeServices: JLLServiceType[];
+  availableServices: JLLServiceType[];
+}
+
 
 

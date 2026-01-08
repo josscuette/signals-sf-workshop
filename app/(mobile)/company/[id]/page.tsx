@@ -28,8 +28,9 @@ import {
   engagementAISummary,
   currentUser,
   companyStatsData,
+  getClientProfile,
 } from "@/lib/data/mock-data";
-import type { Person } from "@/lib/types";
+import type { Person, ClientProfile, JLLServiceType } from "@/lib/types";
 import { DesktopCompanyView } from "@/components/signals/desktop-company-view";
 import { PersonDetailDrawer } from "@/components/signals/person-detail-drawer";
 
@@ -41,6 +42,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
   const { id } = use(params);
   const company = getCompanyById(id);
   const companyPeople = getCompanyPeople(id);
+  const clientProfile = getClientProfile(id);
   const [selectedCity, setSelectedCity] = useState("All");
   const [activeTab, setActiveTab] = useState("overview");
   const headerRef = useRef<HTMLElement>(null);
@@ -53,7 +55,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Panel refs
-  const panelRefs = useRef<(HTMLDivElement | null)[]>([null, null, null]);
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([null, null, null, null]);
 
   // Person detail drawer state
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
@@ -64,7 +66,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
     setPersonDrawerOpen(true);
   };
 
-  const tabs = ["overview", "engagement", "contacts"];
+  const tabs = ["overview", "engagement", "contacts", "client"];
   const currentIndex = tabs.indexOf(activeTab);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -220,6 +222,12 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                   className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Contacts
+                </TabsTrigger>
+                <TabsTrigger
+                  value="client"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
+                >
+                  Client Profile
                 </TabsTrigger>
               </TabsList>
               <ScrollBar orientation="horizontal" />
@@ -454,6 +462,29 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                 )}
               </div>
             </div>
+
+            {/* Client Profile Panel */}
+            <div 
+              ref={(el) => { panelRefs.current[3] = el; }}
+              className="bg-muted/50 w-full"
+              style={{ 
+                position: currentIndex === 3 ? 'relative' : 'absolute',
+                opacity: currentIndex === 3 ? 1 : 0,
+                pointerEvents: currentIndex === 3 ? 'auto' : 'none',
+                transform: `translateX(${(3 - currentIndex) * 100 + (dragOffset / (typeof window !== 'undefined' ? window.innerWidth : 375)) * 100}%)`,
+                transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
+                top: 0,
+                left: 0,
+              }}
+            >
+              {clientProfile ? (
+                <ClientProfilePanel profile={clientProfile} />
+              ) : (
+                <div className="p-8 text-center">
+                  <p className="text-sm leading-5 text-muted-foreground">No client profile available</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </Tabs>
@@ -644,6 +675,117 @@ function ContactCard({ person }: { person: Person }) {
           </CollapsibleContent>
         </Collapsible>
       )}
+    </div>
+  );
+}
+
+// Client Profile Panel Component
+function ClientProfilePanel({ profile }: { profile: ClientProfile }) {
+  const allServices: JLLServiceType[] = [
+    ...profile.activeServices,
+    ...profile.availableServices,
+  ];
+
+  const getClientTypeTonal = (clientType: string) => {
+    switch (clientType) {
+      case 'Portfolio Client':
+        return 'lilac';
+      case 'Strategic Account':
+        return 'science';
+      case 'Active Client':
+        return 'nature';
+      case 'Prospect':
+        return 'honey';
+      default:
+        return 'lilac';
+    }
+  };
+
+  return (
+    <div className="bg-background">
+      {/* Header */}
+      <div className="px-6 py-4 flex items-center justify-between border-b border-border">
+        <h2 className="text-xl leading-7 font-semibold text-foreground">
+          Client Profile
+        </h2>
+        <Button variant="outline" size="sm">
+          View More
+        </Button>
+      </div>
+
+      {/* Content */}
+      <div className="px-6 py-4 flex flex-col gap-6">
+        {/* Client Type Badge */}
+        <div>
+          <Badge tonal={getClientTypeTonal(profile.clientType)} className="text-sm">
+            {profile.clientType}
+          </Badge>
+        </div>
+
+        {/* Account Lead */}
+        {profile.accountLead && (
+          <div className="flex items-center gap-3">
+            <Avatar className="size-12">
+              {profile.accountLead.avatar ? (
+                <AvatarImage src={profile.accountLead.avatar} alt={profile.accountLead.name} />
+              ) : (
+                <AvatarFallback className="bg-muted text-muted-foreground">
+                  {profile.accountLead.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                </AvatarFallback>
+              )}
+            </Avatar>
+            <div className="flex flex-col">
+              <span className="text-base leading-6 font-medium text-foreground">
+                {profile.accountLead.name}
+              </span>
+              <span className="text-sm leading-5 text-muted-foreground">
+                {profile.accountLead.title}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Location */}
+        {profile.location && (
+          <div className="flex items-center gap-3">
+            <MaterialSymbol name="location_on" size={24} className="text-muted-foreground" />
+            <span className="text-base leading-6 text-foreground">
+              {profile.location}
+            </span>
+          </div>
+        )}
+
+        {/* JLL Services */}
+        <div className="flex flex-col gap-3">
+          <h3 className="text-sm leading-5 text-muted-foreground">
+            JLL Services
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {allServices.map((service) => {
+              const isActive = profile.activeServices.includes(service);
+              return (
+                <div
+                  key={service}
+                  className={`
+                    flex items-center gap-2 px-4 py-2 rounded-full border text-sm leading-5
+                    ${isActive 
+                      ? 'border-foreground text-foreground' 
+                      : 'border-border text-muted-foreground bg-muted/30'
+                    }
+                  `}
+                >
+                  {isActive && (
+                    <MaterialSymbol name="check" size={16} />
+                  )}
+                  <span className={service.length > 20 ? 'truncate max-w-[180px]' : ''}>
+                    {service}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
