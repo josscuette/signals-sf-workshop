@@ -11,7 +11,7 @@ export function DesktopShell({ children }: DesktopShellProps) {
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <DesktopHeader />
-        <main className="flex-1 overflow-auto bg-muted/30">
+        <main className="flex-1 overflow-auto bg-muted">
           {children}
         </main>
       </div>
