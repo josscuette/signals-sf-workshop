@@ -80,5 +80,27 @@ export interface User {
 // Navigation types
 export type BottomNavItem = 'home' | 'search' | 'add' | 'following' | 'profile';
 
+// Working Leads (Desktop feature)
+export interface WorkingLead {
+  id: string;
+  company: Company;
+  signals: string[];
+  categories: string[];
+  lastActivity: string;
+  isUnread: boolean;
+}
+
+// Warm Introduction (Desktop feature)
+export interface WarmIntroduction {
+  summary: string;
+  contacts: Person[];
+}
+
+// Extended Person fields for desktop
+export interface LeadershipContact extends Person {
+  isLeadership: boolean;
+  lastInteraction?: string;
+}
+
 
 

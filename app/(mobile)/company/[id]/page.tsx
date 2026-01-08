@@ -31,6 +31,7 @@ import {
   companyStatsData,
 } from "@/lib/data/mock-data";
 import type { Person } from "@/lib/types";
+import { DesktopCompanyView } from "@/components/signals/desktop-company-view";
 
 interface CompanyPageProps {
   params: Promise<{ id: string }>;
@@ -126,7 +127,14 @@ export default function CompanyPage({ params }: CompanyPageProps) {
     : activities.filter(a => a.location === selectedCity);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <>
+      {/* ===== DESKTOP VERSION ===== */}
+      <div className="hidden md:block h-full">
+        <DesktopCompanyView company={company} />
+      </div>
+
+      {/* ===== MOBILE VERSION ===== */}
+      <div className="flex flex-col min-h-screen bg-background md:hidden">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
         {/* Fixed Header */}
         <header ref={headerRef} className="fixed top-0 left-0 right-0 z-10 bg-background">
@@ -456,7 +464,8 @@ export default function CompanyPage({ params }: CompanyPageProps) {
         </div>
       </Tabs>
 
-    </div>
+      </div>
+    </>
   );
 }
 

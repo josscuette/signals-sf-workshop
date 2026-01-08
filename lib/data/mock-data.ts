@@ -1,4 +1,4 @@
-import type { Company, Person, Signal, Activity, User, CompanyStats } from '@/lib/types';
+import type { Company, Person, Signal, Activity, User, CompanyStats, WorkingLead, WarmIntroduction } from '@/lib/types';
 
 // Current user
 export const currentUser: User = {
@@ -760,5 +760,75 @@ export function getCompanyPeople(companyId: string): Person[] {
 export function getPersonConnections(personId: string): Person[] {
   // Return mock connections (in real app, this would be based on relationship data)
   return people.filter((p) => p.id !== personId).slice(0, 3);
+}
+
+// Working Leads (Desktop feature)
+export const workingLeads: WorkingLead[] = [
+  {
+    id: 'lead-1',
+    company: companies[0], // Salesforce
+    signals: ['Hiring 8 jobs', 'Leadership change 7/18/24'],
+    categories: ['HVTs', 'Industrial'],
+    lastActivity: '3w',
+    isUnread: true,
+  },
+  {
+    id: 'lead-2',
+    company: companies[1], // Northrop Grumman
+    signals: ['Hiring 8 jobs', 'Leadership change 7/18/24'],
+    categories: ['HVTs', 'Industrial'],
+    lastActivity: '3w',
+    isUnread: false,
+  },
+  {
+    id: 'lead-3',
+    company: companies[3], // Stripe
+    signals: ['Funding', 'Expansion'],
+    categories: ['Tech', 'Growth'],
+    lastActivity: '1w',
+    isUnread: true,
+  },
+  {
+    id: 'lead-4',
+    company: companies[4], // BlackRock
+    signals: ['Leadership change'],
+    categories: ['Finance', 'Enterprise'],
+    lastActivity: '2w',
+    isUnread: false,
+  },
+  {
+    id: 'lead-5',
+    company: companies[5], // Google
+    signals: ['Expansion', 'Hiring 12 jobs'],
+    categories: ['Tech', 'HVTs'],
+    lastActivity: '5d',
+    isUnread: true,
+  },
+];
+
+// Warm Introductions (Desktop feature)
+export const warmIntroductions: Record<string, WarmIntroduction> = {
+  'company-1': {
+    summary: 'Several relationships exist at the leadership level, supported by direct meetings and recent communication. These connections may be particularly relevant for strategic or time-sensitive outreach.',
+    contacts: [people[0], people[3]], // Jayant Sai, Michael Chen
+  },
+  'company-2': {
+    summary: 'Strong existing relationships through multiple touchpoints. The VP of Facilities has been engaged recently with positive signals.',
+    contacts: [people[5], people[6]], // David Brooks, Amanda Torres
+  },
+  'company-3': {
+    summary: 'The CFO has shown interest in real estate discussions. Recent engagement suggests timing may be favorable.',
+    contacts: [people[8]], // Emily Watson
+  },
+};
+
+// Leadership contacts for a company
+export function getLeadershipContacts(companyId: string): Person[] {
+  return people.filter(p => p.company.id === companyId && p.tags.includes('Leadership'));
+}
+
+// Get warm introduction for a company
+export function getWarmIntroduction(companyId: string): WarmIntroduction | undefined {
+  return warmIntroductions[companyId];
 }
 
