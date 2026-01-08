@@ -204,28 +204,28 @@ export default function CompanyPage({ params }: CompanyPageProps) {
           {/* Tab Navigation */}
           <div className="w-full border-b border-border">
             <ScrollArea className="w-full">
-              <TabsList className="w-max bg-transparent h-auto p-0 gap-4 pl-6">
+              <TabsList className="w-max bg-transparent h-auto p-0 gap-4 pl-6 mb-[-1px]">
                 <TabsTrigger
                   value="overview"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Overview
                 </TabsTrigger>
                 <TabsTrigger
                   value="engagement"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Engagement
                 </TabsTrigger>
                 <TabsTrigger
                   value="contacts"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Contacts
                 </TabsTrigger>
                 <TabsTrigger
                   value="client"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
                 >
                   Client Profile
                 </TabsTrigger>
@@ -686,16 +686,16 @@ function ClientProfilePanel({ profile }: { profile: ClientProfile }) {
     ...profile.availableServices,
   ];
 
-  const getClientTypeTonal = (clientType: string) => {
+  const getClientTypeTonal = (clientType: string): "lilac" | "science" | "forest" | "amber" => {
     switch (clientType) {
       case 'Portfolio Client':
         return 'lilac';
       case 'Strategic Account':
         return 'science';
       case 'Active Client':
-        return 'nature';
+        return 'forest';
       case 'Prospect':
-        return 'honey';
+        return 'amber';
       default:
         return 'lilac';
     }
@@ -703,16 +703,6 @@ function ClientProfilePanel({ profile }: { profile: ClientProfile }) {
 
   return (
     <div className="bg-background">
-      {/* Header */}
-      <div className="px-6 py-4 flex items-center justify-between border-b border-border">
-        <h2 className="text-xl leading-7 font-semibold text-foreground">
-          Client Profile
-        </h2>
-        <Button variant="outline" size="sm">
-          View More
-        </Button>
-      </div>
-
       {/* Content */}
       <div className="px-6 py-4 flex flex-col gap-6">
         {/* Client Type Badge */}
