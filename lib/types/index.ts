@@ -56,7 +56,7 @@ export interface Signal {
   type: SignalType;
 }
 
-export type SignalType = 'hiring' | 'funding' | 'leadership' | 'expansion' | 'other';
+export type SignalType = 'hiring' | 'funding' | 'leadership' | 'expansion' | 'relocation' | 'lease' | 'other';
 
 export interface Activity {
   id: string;
