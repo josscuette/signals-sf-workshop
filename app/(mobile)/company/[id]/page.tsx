@@ -271,7 +271,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                     {companySignals.map((signal) => (
                       <div
                         key={signal}
-                        className="shrink-0 bg-[var(--tonal-science-subdued,#e8f4ff)] text-[var(--tonal-science-strong,#125190)] px-3 py-2 rounded-md text-sm leading-5 whitespace-nowrap"
+                        className="shrink-0 bg-[var(--semantic-tonal-science-subdued)] text-[var(--semantic-tonal-science-strong)] px-3 py-2 rounded-md text-sm leading-5 whitespace-nowrap"
                       >
                         {signal}
                       </div>
@@ -400,14 +400,14 @@ export default function CompanyPage({ params }: CompanyPageProps) {
             >
               <div className="flex flex-col gap-4 p-4">
                 {/* AI Summary Card */}
-                <div className="bg-[var(--tonal-royal-subdued,#e8e8ff)] rounded-xl p-4 flex flex-col gap-3">
+                <div className="bg-[var(--semantic-tonal-royal-subdued)] rounded-xl p-4 flex flex-col gap-3">
                   <div className="flex items-center gap-2">
-                    <MaterialSymbol name="auto_awesome" size={20} className="text-[var(--tonal-royal-strong,#4a4adc)]" />
-                    <h3 className="text-sm font-medium text-[var(--tonal-royal-strong,#4a4adc)]">
+                    <MaterialSymbol name="auto_awesome" size={20} className="text-[var(--semantic-tonal-royal-strong)]" />
+                    <h3 className="text-sm font-medium text-[var(--semantic-tonal-royal-strong)]">
                       AI Summary
                     </h3>
                   </div>
-                  <div className="text-sm leading-relaxed text-[var(--tonal-royal-strong,#4a4adc)] whitespace-pre-line">
+                  <div className="text-sm leading-relaxed text-[var(--semantic-tonal-royal-strong)] whitespace-pre-line">
                     {engagementAISummary}
                   </div>
                 </div>
@@ -443,7 +443,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                 <div className="flex flex-col">
                   <div className="flex items-center gap-1">
                     <span className="text-xl leading-7 font-semibold text-foreground">{companyStatsData.localEmployees}</span>
-                    <span className="text-xs leading-4 text-[var(--tonal-nature-strong,#0d7a3c)] flex items-center">
+                    <span className="text-xs leading-4 text-[var(--semantic-tonal-forest-strong)] flex items-center">
                       <MaterialSymbol name="arrow_upward" size={12} />
                       {companyStatsData.localEmployeesGrowth}% (Yoy)
                     </span>
@@ -453,7 +453,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                 <div className="flex flex-col">
                   <div className="flex items-center gap-1">
                     <span className="text-xl leading-7 font-semibold text-foreground">{companyStatsData.globalEmployees}</span>
-                    <span className="text-xs leading-4 text-[var(--tonal-nature-strong,#0d7a3c)] flex items-center">
+                    <span className="text-xs leading-4 text-[var(--semantic-tonal-forest-strong)] flex items-center">
                       <MaterialSymbol name="arrow_upward" size={12} />
                       {companyStatsData.globalEmployeesGrowth}% (Yoy)
                     </span>
@@ -463,7 +463,7 @@ export default function CompanyPage({ params }: CompanyPageProps) {
                 <div className="flex flex-col">
                   <div className="flex items-center gap-1">
                     <span className="text-xl leading-7 font-semibold text-foreground">{companyStatsData.localJobs}</span>
-                    <span className="text-xs leading-4 text-[var(--tonal-nature-strong,#0d7a3c)] flex items-center">
+                    <span className="text-xs leading-4 text-[var(--semantic-tonal-forest-strong)] flex items-center">
                       <MaterialSymbol name="arrow_upward" size={12} />
                       {companyStatsData.localJobsGrowth}% (Yoy)
                     </span>
@@ -601,7 +601,7 @@ function ContactCard({ person }: { person: Person }) {
       {(person.mutualConnections || person.isMostRecentlyContacted) && (
         <div className="flex items-center gap-2 flex-wrap">
           {person.mutualConnections && person.mutualConnections > 0 && (
-            <Badge variant="outline" className="text-[var(--tonal-nature-strong,#0d7a3c)] border-[var(--tonal-nature-subdued,#d4f5e0)] bg-[var(--tonal-nature-subdued,#d4f5e0)]">
+            <Badge variant="outline" className="text-[var(--semantic-tonal-forest-strong)] border-[var(--semantic-tonal-forest-subdued)] bg-[var(--semantic-tonal-forest-subdued)]">
               <MaterialSymbol name="add_circle_outline" size={14} className="mr-1" />
               {person.mutualConnections} mutual connection{person.mutualConnections > 1 ? 's' : ''}
             </Badge>
@@ -759,13 +759,13 @@ function ClientProfilePanel({ profile }: { profile: ClientProfile }) {
                   className={`
                     flex items-center gap-2 px-4 py-2 rounded-full border text-sm leading-5
                     ${isActive 
-                      ? 'border-[var(--tonal-science-subdued,#e8f4ff)] bg-[var(--tonal-science-subdued,#e8f4ff)] text-[var(--tonal-science-strong,#125190)]' 
+                      ? 'border-[var(--semantic-tonal-science-subdued)] bg-[var(--semantic-tonal-science-subdued)] text-[var(--semantic-tonal-science-strong)]' 
                       : 'border-border text-muted-foreground bg-muted/30'
                     }
                   `}
                 >
                   {isActive && (
-                    <MaterialSymbol name="check" size={16} className="text-[var(--tonal-science-strong,#125190)]" />
+                    <MaterialSymbol name="check" size={16} className="text-[var(--semantic-tonal-science-strong)]" />
                   )}
                   <span className={service.length > 20 ? 'truncate max-w-[180px]' : ''}>
                     {service}

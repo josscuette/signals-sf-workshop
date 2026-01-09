@@ -105,25 +105,25 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
             <TabsList className="bg-transparent h-auto p-0 pb-2 gap-6">
               <TabsTrigger
                 value="overview"
-                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+                className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
               >
                 Overview
               </TabsTrigger>
               <TabsTrigger
                 value="client"
-                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+                className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
               >
                 Client Profile
               </TabsTrigger>
               <TabsTrigger
                 value="engagement"
-                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+                className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
               >
                 Engagement
               </TabsTrigger>
               <TabsTrigger
                 value="contacts"
-                className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+                className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
               >
                 Contacts
               </TabsTrigger>
@@ -150,14 +150,14 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                 </h3>
 
                 {/* AI Summary */}
-                <div className="bg-[var(--tonal-royal-subdued,#e8e8ff)] rounded-lg p-4 mb-4">
+                <div className="bg-[var(--semantic-tonal-royal-subdued)] rounded-lg p-4 mb-4">
                   <div className="flex items-start gap-3">
                     <MaterialSymbol
                       name="auto_awesome"
                       size={20}
-                      className="text-[var(--tonal-royal-strong,#4a4adc)] shrink-0"
+                      className="text-[var(--semantic-tonal-royal-strong)] shrink-0"
                     />
-                    <p className="text-sm text-[var(--tonal-royal-strong,#4a4adc)] leading-relaxed">
+                    <p className="text-sm text-[var(--semantic-tonal-royal-strong)] leading-relaxed">
                       {warmIntroSummary}
                     </p>
                   </div>
@@ -208,14 +208,14 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                 </h3>
 
                 {/* AI Summary */}
-                <div className="bg-[var(--tonal-royal-subdued,#e8e8ff)] rounded-lg p-4 mb-4">
+                <div className="bg-[var(--semantic-tonal-royal-subdued)] rounded-lg p-4 mb-4">
                   <div className="flex items-start gap-3">
                     <MaterialSymbol
                       name="auto_awesome"
                       size={20}
-                      className="text-[var(--tonal-royal-strong,#4a4adc)] shrink-0"
+                      className="text-[var(--semantic-tonal-royal-strong)] shrink-0"
                     />
-                    <p className="text-sm text-[var(--tonal-royal-strong,#4a4adc)] leading-relaxed">
+                    <p className="text-sm text-[var(--semantic-tonal-royal-strong)] leading-relaxed">
                       {engagementSummary}
                     </p>
                   </div>
@@ -313,7 +313,7 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                     <span className="text-2xl font-semibold text-foreground">
                       {companyStatsData.localEmployees}
                     </span>
-                    <span className="text-xs text-[var(--tonal-nature-strong,#0d7a3c)] flex items-center">
+                    <span className="text-xs text-[var(--semantic-tonal-forest-strong)] flex items-center">
                       <MaterialSymbol name="arrow_upward" size={12} />
                       {companyStatsData.localEmployeesGrowth}% (Yoy)
                     </span>
@@ -327,7 +327,7 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                     <span className="text-2xl font-semibold text-foreground">
                       {companyStatsData.globalEmployees}
                     </span>
-                    <span className="text-xs text-[var(--tonal-nature-strong,#0d7a3c)] flex items-center">
+                    <span className="text-xs text-[var(--semantic-tonal-forest-strong)] flex items-center">
                       <MaterialSymbol name="arrow_upward" size={12} />
                       {companyStatsData.globalEmployeesGrowth}% (Yoy)
                     </span>
@@ -339,7 +339,7 @@ export function DesktopCompanyView({ company }: DesktopCompanyViewProps) {
                     <span className="text-2xl font-semibold text-foreground">
                       {companyStatsData.localJobs}
                     </span>
-                    <span className="text-xs text-[var(--tonal-nature-strong,#0d7a3c)] flex items-center">
+                    <span className="text-xs text-[var(--semantic-tonal-forest-strong)] flex items-center">
                       <MaterialSymbol name="arrow_upward" size={12} />
                       {companyStatsData.localJobsGrowth}% (Yoy)
                     </span>
@@ -652,13 +652,13 @@ function ClientProfileSection({ profile }: ClientProfileSectionProps) {
                 className={`
                   flex items-center gap-2 px-3 py-1.5 rounded-full border text-sm
                   ${isActive 
-                    ? 'border-[var(--tonal-science-subdued,#e8f4ff)] bg-[var(--tonal-science-subdued,#e8f4ff)] text-[var(--tonal-science-strong,#125190)]' 
+                    ? 'border-[var(--semantic-tonal-science-subdued)] bg-[var(--semantic-tonal-science-subdued)] text-[var(--semantic-tonal-science-strong)]' 
                     : 'border-border text-muted-foreground bg-muted/30'
                   }
                 `}
               >
                 {isActive && (
-                  <MaterialSymbol name="check" size={14} className="text-[var(--tonal-science-strong,#125190)]" />
+                  <MaterialSymbol name="check" size={14} className="text-[var(--semantic-tonal-science-strong)]" />
                 )}
                 <span>{service}</span>
               </div>

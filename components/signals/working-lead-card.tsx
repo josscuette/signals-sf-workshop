@@ -6,9 +6,9 @@ import type { WorkingLead } from "@/lib/types";
 
 // Map categories to tonal colors
 const categoryColors: Record<string, string> = {
-  'HVTs': 'bg-[var(--tonal-royal-strong,#4a4adc)]',
-  'Industrial': 'bg-[var(--tonal-nature-strong,#0d7a3c)]',
-  'Tech': 'bg-[var(--tonal-science-strong,#125190)]',
+  'HVTs': 'bg-[var(--semantic-tonal-royal-strong)]',
+  'Industrial': 'bg-[var(--semantic-tonal-forest-strong)]',
+  'Tech': 'bg-[var(--semantic-tonal-science-strong)]',
 };
 
 const getColorForCategory = (category: string): string => {
@@ -77,7 +77,7 @@ export function WorkingLeadCard({ lead, isSelected, onClick }: WorkingLeadCardPr
               {lastActivity}
             </span>
             {isUnread && (
-              <div className="size-2 rounded-full bg-[var(--tonal-science-strong,#125190)]" />
+              <div className="size-2 rounded-full bg-[var(--semantic-tonal-science-strong)]" />
             )}
           </div>
         </div>
