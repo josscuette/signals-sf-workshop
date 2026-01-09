@@ -4,6 +4,17 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, Badge } from "@jllt/alize-ui";
 import type { WorkingLead } from "@/lib/types";
 
+// Map categories to tonal colors
+const categoryColors: Record<string, string> = {
+  'HVTs': 'bg-[var(--tonal-royal-strong,#4a4adc)]',
+  'Industrial': 'bg-[var(--tonal-nature-strong,#0d7a3c)]',
+  'Tech': 'bg-[var(--tonal-science-strong,#125190)]',
+};
+
+const getColorForCategory = (category: string): string => {
+  return categoryColors[category] || 'bg-foreground';
+};
+
 interface WorkingLeadCardProps {
   lead: WorkingLead;
   isSelected?: boolean;
@@ -88,7 +99,7 @@ export function WorkingLeadCard({ lead, isSelected, onClick }: WorkingLeadCardPr
         <div className="flex items-center gap-3">
           {categories.map((category) => (
             <div key={category} className="flex items-center gap-1">
-              <div className="size-2 rounded-sm bg-foreground" />
+              <div className={`size-2 rounded-sm ${getColorForCategory(category)}`} />
               <span className="text-xs text-muted-foreground">{category}</span>
             </div>
           ))}
