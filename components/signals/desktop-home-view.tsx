@@ -136,31 +136,36 @@ function CompanyDetailPanel({ company }: { company: Company }) {
           <TabsList className="bg-transparent h-auto p-0 pb-2 gap-6">
             <TabsTrigger
               value="overview"
-              className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+              style={{ background: 'transparent' }}
+              className="rounded-none border-b-2 border-b-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
             >
               Overview
             </TabsTrigger>
             <TabsTrigger
               value="engagement"
-              className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+              style={{ background: 'transparent' }}
+              className="rounded-none border-b-2 border-b-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
             >
               Engagement
             </TabsTrigger>
             <TabsTrigger
               value="communication"
-              className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+              style={{ background: 'transparent' }}
+              className="rounded-none border-b-2 border-b-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
             >
               Communication
             </TabsTrigger>
             <TabsTrigger
               value="contacts"
-              className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+              style={{ background: 'transparent' }}
+              className="rounded-none border-b-2 border-b-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
             >
               Contacts
             </TabsTrigger>
             <TabsTrigger
               value="leases"
-              className="rounded-none border-b-2 border-b-transparent bg-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
+              style={{ background: 'transparent' }}
+              className="rounded-none border-b-2 border-b-transparent text-muted-foreground data-[state=active]:border-b-foreground data-[state=active]:text-foreground data-[state=active]:shadow-none px-0 pb-3 pt-3 text-sm leading-5 font-normal"
             >
               Leases
             </TabsTrigger>

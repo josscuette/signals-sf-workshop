@@ -207,25 +207,29 @@ export default function CompanyPage({ params }: CompanyPageProps) {
               <TabsList className="w-max bg-transparent h-auto p-0 gap-4 pl-6 mb-[-1px]">
                 <TabsTrigger
                   value="overview"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  style={{ background: 'transparent' }}
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Overview
                 </TabsTrigger>
                 <TabsTrigger
                   value="client"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
+                  style={{ background: 'transparent' }}
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal whitespace-nowrap"
                 >
                   Client Profile
                 </TabsTrigger>
                 <TabsTrigger
                   value="engagement"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  style={{ background: 'transparent' }}
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Engagement
                 </TabsTrigger>
                 <TabsTrigger
                   value="contacts"
-                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:bg-transparent data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
+                  style={{ background: 'transparent' }}
+                  className="rounded-none border-b-2 border-b-transparent data-[state=active]:border-b-foreground data-[state=active]:shadow-none px-0 pb-4 pt-0 text-base leading-6 font-normal"
                 >
                   Contacts
                 </TabsTrigger>
